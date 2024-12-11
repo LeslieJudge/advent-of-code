@@ -44,19 +44,10 @@ static bool IsSafeWithDampener(int[] levels)
     return variations.Any(IsSafe);
 }
 
-static int[][] CreateVariations(int[] levels)
-{
-    var variations = new List<int[]>();
-
-    for (var i = 0; i < levels.Length; i++)
-    {
-        var variation = new int[levels.Length - 1];
-
-        Array.Copy(levels, variation, i);
-        Array.Copy(levels, i + 1, variation, i, levels.Length - i - 1);
-
-        variations.Add(variation);
-    }
-
-    return variations.ToArray();
-}
+static int[][] CreateVariations(int[] levels) 
+    => levels
+    .Select((_, index) => levels
+        .Take(index)
+        .Concat(levels.Skip(index + 1))
+        .ToArray())
+    .ToArray();
