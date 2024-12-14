@@ -2,7 +2,7 @@
 
 internal sealed class Equation
 {
-    private readonly char[] _operators = ['+', '*'];
+    private readonly char[] _operators = ['+', '*', '|'];
     private readonly int[] _operands;
 
     public Equation(long result, IEnumerable<int> operands)
@@ -45,6 +45,9 @@ internal sealed class Equation
                     break;
                 case '*':
                     result *= _operands[i];
+                    break;
+                case '|':
+                    result = long.Parse($"{result}{_operands[i]}");
                     break;
                 default:
                     break;
